@@ -1,0 +1,105 @@
+import csv
+import random
+kiaumentado=False
+lista=[]
+luchadores=["Vegeta","Goku","Trunks","Krilin","Gohan"]
+def maximo():
+    mayor=0
+    for x in lista:
+        ki=int(x[1])
+        if ki>mayor:
+            mayor=ki
+    return mayor
+def cate():
+    if ki<=10000:
+        categoria="Terricola"
+    elif ki>=10001 and ki<=50000:
+        categoria="Luchador"
+    elif ki>=50001 and ki<=100000:
+        categoria="Titan"
+    return categoria
+def promedio():
+    acum=0
+    cant=len(lista)
+    for x in lista:
+        ki=int(x[1])
+        acum=acum+ki
+    prom=acum/cant
+    return prom
+def minimo():
+    menor=100000
+    for x in lista:
+        ki=int(x[1])
+        if ki<menor:
+            menor=ki
+    return menor
+def imprimir():
+    print("\nTerricolas:")
+    for x in lista:
+        if x[2]==("Terricola") and kiaumentado:
+            print("Nombre:",x[0],"KI:",x[1],"KI aumentado:",x[3])
+        elif x[2]==("Terricola"):
+            print("Nombre:",x[0],"KI:",x[1])
+    print("\nLuchadores:")
+    for x in lista:
+        if x[2]==("Luchador") and kiaumentado:
+            print("Nombre:",x[0],"KI:",x[1],"KI aumentado:",x[3])
+        elif x[2]==("Luchador"):
+            print("Nombre:",x[0],"KI:",x[1])
+    print("\nTitan:")        
+    for x in lista:
+        if x[2]==("Titan") and kiaumentado:
+            print("Nombre:",x[0],"KI:",x[1],"KI aumentado:",x[3])
+        elif x[2]==("Titan"):
+            print("Nombre:",x[0],"KI:",x[1])
+def aumento():
+    peo=int(x[1])*1.25
+    return peo
+while True:
+    print("=== M E N Ú ===")
+    print("1.- Asignar nivel de Ki")
+    print("2.- Imprimir y ordenar luchadores")
+    print("3.- Estadísticas")
+    print("4.- Generar BBDD")
+    print("5.- Llamar al gran patriarca")
+    print("6.- Salir")
+    op=int(input("Ingrese una opción:\n"))
+    if op==1:
+        print("===ASIGNAR NIVEL DE KI===")
+        lista.clear()
+        for guerrero in luchadores:
+            ki=random.randint(1000,100000)
+            categoria=cate()
+            kis=[guerrero,ki,categoria,0]
+            lista.append(kis)
+        print("Ki's asignados correctamente.")
+    elif op==2:
+        print("===IMPRIMIR Y ORDENAR LUCHADORES===")
+        imprimir()
+    elif op==3:
+        print("===ESTADÍSTICAS===")
+        ki_maximo=maximo()
+        ki_promedio=promedio()
+        ki_minimo=minimo()
+        print("El KI promedio es:",ki_promedio)
+        print("El KI más alto es:",ki_maximo)
+        print("El KI más bajo es:",ki_minimo)
+    elif op==4:
+        print("===GENERAR BBDD===")
+        with open ("Guerreros_Z.csv","w",newline="")as Archivo:
+            escribircsv=csv.writer(Archivo)
+            escribircsv.writerow(["Luchador","KI","Categoria","KI aumentado"])
+            escribircsv.writerows(lista)
+            print("Archivo guardado correctamente")
+    elif op==5:
+        print("===LLAMAR AL GRAN PATRIARCA===")
+        for x in lista:
+            ki_aumentado=aumento()
+            x[3]=ki_aumentado
+            print("Luchador:",x[0],"KI:",x[1],"Categoria:",x[2],"KI aumentado:",ki_aumentado)
+        kiaumentado=True
+    elif op==6:
+        print("Gracias por usar esta plataforma!")
+        break
+    else:
+        print("Ingrese una opción válida...")
